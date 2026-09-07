@@ -14,7 +14,7 @@
       "link": "find-us.html"
     },
     "imageSrc": "static/iphone-3.png",
-    "visualsHtml": "<div class=\"space-y-6\"><div><h3 class=\"text-2xl font-bold text-[#0B2038] mb-2\">Dễ dàng sở hữu</h3><p class=\"text-gray-600 font-semibold mb-1\">Dòng sản phẩm iPhone</p></div><div class=\"h-px w-16 bg-[#D1AB57] my-4\"></div><div class=\"grid grid-cols-2 gap-x-8 gap-y-6 text-gray-500 font-medium\"><div><p class=\"font-bold text-[#0B2038]\">16 series</p><p>Pro Max, Pro, Plus, E</p></div><div><p class=\"font-bold text-[#0B2038]\">series khác</p><p>13, 12, 11, XS, X</p></div><div><p class=\"font-bold text-[#0B2038]\">15 series</p><p>Pro Max, Pro, Plus</p></div><div><p class=\"font-bold text-[#0B2038]\">14 series</p><p>Pro Max, Pro, Plus</p></div></div></div>"
+    "visualsHtml": "<div class=\"space-y-6\"><div><h3 class=\"text-2xl font-bold text-[#0B2038] mb-2\" style=\"font-family: 'Montserrat', sans-serif;\">Dễ dàng sở hữu</h3><p class=\"text-gray-600 font-semibold mb-1\">Dòng sản phẩm iPhone</p></div><div class=\"h-px w-16 bg-[#D1AB57] my-4\"></div><div class=\"grid grid-cols-2 gap-x-8 gap-y-6 text-gray-500 font-medium\"><div><p class=\"font-bold text-[#0B2038]\">16 series</p><p>Pro Max, Pro, Plus, E</p></div><div><p class=\"font-bold text-[#0B2038]\">series khác</p><p>13, 12, 11, XS, X</p></div><div><p class=\"font-bold text-[#0B2038]\">15 series</p><p>Pro Max, Pro, Plus</p></div><div><p class=\"font-bold text-[#0B2038]\">14 series</p><p>Pro Max, Pro, Plus</p></div></div></div>"
   },
   {
     "preTitle": "VAY NHANH",
@@ -28,10 +28,10 @@
     ],
     "button": {
       "text": "VAY NGAY",
-      "link": "https://zalo.me/4359279741824957028"
+      "link": ""
     },
     "imageSrc": "static/iphone-shopping.png",
-    "visualsHtml": "<div class=\"space-y-6\"><div><h3 class=\"text-2xl font-bold text-[#0B2038] mb-2\">Dễ dàng tiếp cận</h3><p class=\"text-gray-600 font-semibold mb-1\">Cần gì đắn đo?</p><p class=\"text-gray-500 text-sm\">Thanh xuân không chờ, vay liền không ngại.</p></div><div class=\"h-px w-16 bg-[#D1AB57] my-4\"></div><div><h3 class=\"text-xl font-bold text-[#0B2038] mb-2\">Mua sắm cực chill</h3><p class=\"text-gray-500 text-sm\">Tiền về tức thì, mua gì cũng tiện.</p></div></div>"
+    "visualsHtml": "<div class=\"space-y-6\"><div><h3 class=\"text-2xl font-bold text-[#0B2038] mb-2\" style=\"font-family: 'Montserrat', sans-serif;\">Dễ dàng tiếp cận</h3><p class=\"text-gray-600 font-semibold mb-1\">Cần gì đắn đo?</p><p class=\"text-gray-500 text-sm\">Thanh xuân không chờ, vay liền không ngại.</p></div><div class=\"h-px w-16 bg-[#D1AB57] my-4\"></div><div><h3 class=\"text-xl font-bold text-[#0B2038] mb-2\" style=\"font-family: 'Montserrat', sans-serif;\">Mua sắm cực chill</h3><p class=\"text-gray-500 text-sm\">Tiền về tức thì, mua gì cũng tiện.</p></div></div>"
   },
   {
     "preTitle": "VAY MUA",
@@ -45,9 +45,9 @@
     ],
     "button": {
       "text": "VAY NGAY",
-      "link": "https://zalo.me/4359279741824957028"
+      "link": ""
     },
     "imageSrc": "static/motorbike.jpg",
-    "visualsHtml": "<div class=\"space-y-6\"><div><h3 class=\"text-2xl font-bold text-[#0B2038] mb-2\">Chinh phục mọi nẻo đường</h3><p class=\"text-gray-600 font-semibold mb-1\">Hỗ trợ đa dạng dòng xe</p></div><div class=\"h-px w-16 bg-[#D1AB57] my-4\"></div><div class=\"grid grid-cols-2 gap-x-8 gap-y-4 text-gray-500\"><div><p class=\"font-bold text-[#0B2038]\">Honda</p><p>Vision, Air Blade, SH</p></div><div><p class=\"font-bold text-[#0B2038]\">Yamaha</p><p>Exciter, Sirius, Janus</p></div></div></div>"
+    "visualsHtml": "<div class=\"space-y-6\"><div><h3 class=\"text-2xl font-bold text-[#0B2038] mb-2\" style=\"font-family: 'Montserrat', sans-serif;\">Chinh phục mọi nẻo đường</h3><p class=\"text-gray-600 font-semibold mb-1\">Hỗ trợ đa dạng dòng xe</p></div><div class=\"h-px w-16 bg-[#D1AB57] my-4\"></div><div class=\"grid grid-cols-2 gap-x-8 gap-y-4 text-gray-500\"><div><p class=\"font-bold text-[#0B2038]\">Honda</p><p>Vision, Air Blade, SH</p></div><div><p class=\"font-bold text-[#0B2038]\">Yamaha</p><p>Exciter, Sirius, Janus</p></div></div></div>"
   }
 ]

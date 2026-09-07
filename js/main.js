@@ -96,13 +96,13 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((response) => response.json())
       .then((productData) => {
         let slidesHtml = "";
-
+        
         productData.forEach((slide) => {
           const featuresHtml = slide.features
             .map((feature) => {
               const formattedFeature = feature.replace(
                 /\*\*(.*?)\*\*/g,
-                '<span class="font-bold mx-1 text-[#1A9CA6]">$1</span>',
+                '<span class="font-bold mx-1 text-[#1A9CA6]">$1</span>'
               );
               return `<li class="flex items-start mb-4">
                     <div class="mt-1 mr-4 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#1A9CA6]/10">
@@ -113,23 +113,18 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .join("");
 
-          // Tự động dọn dẹp ký tự mũi tên thừa trong text của JSON
-          const cleanBtnText = slide.button.text
-            .replace(/->|→|&rarr;/g, "")
-            .trim();
+          const cleanBtnText = slide.button.text.replace(/->|→|&rarr;/g, '').trim();
 
           slidesHtml += `
           <div class="swiper-slide p-4 md:p-8" data-link="${slide.button.link}">
-            
-            <!-- Xóa max-w-6xl, thay bằng w-full và tăng padding (lg:p-20) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-center h-full w-full bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 lg:p-20">
               
-              <!-- CỘT TRÁI: Nội dung -->
               <div class="lg:col-span-5 flex flex-col justify-center text-center lg:text-left order-2 lg:order-1">
-    <p class="font-raleway text-sm md:text-base text-gray-500 font-bold tracking-[0.2em] uppercase mb-4">${slide.preTitle}</p>
-    <h2 class="text-3xl md:text-5xl font-extrabold tracking-wide leading-relaxed uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#0B2038] to-[#1A9CA6] py-2 px-1 inline-block box-decoration-clone" style="font-family: 'Montserrat', sans-serif;">
-        ${slide.title}
-    </h2>
+                <p class="font-raleway text-sm md:text-base text-gray-500 font-bold tracking-[0.2em] uppercase mb-4">${slide.preTitle}</p>
+                
+                <h2 class="text-3xl md:text-5xl font-extrabold tracking-wide leading-relaxed uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#0B2038] to-[#1A9CA6] py-2 px-1 inline-block box-decoration-clone" style="font-family: 'Montserrat', sans-serif;">
+                    ${slide.title}
+                </h2>
                 
                 <ul class="mt-8 text-left inline-block lg:block">
                     ${featuresHtml}
@@ -142,10 +137,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 </div>
               </div>
 
-              <!-- CỘT PHẢI: Hình ảnh và Thông số -->
               <div class="lg:col-span-7 flex flex-col md:flex-row items-center justify-center gap-10 lg:gap-14 order-1 lg:order-2">
                 <div class="w-full md:w-1/2 flex justify-center relative">
-                  <!-- Đã tăng max-h lên 500px để ảnh điện thoại to tương xứng với khung -->
                   <img src="${slide.imageSrc}" class="object-contain max-h-[400px] md:max-h-[500px] drop-shadow-2xl hover:-translate-y-2 transition-transform duration-500" alt="${slide.title}" />
                 </div>
                 
@@ -168,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="swiper-button-next product-nav-next"></div>
         `;
 
-        const productSwiper = new Swiper(".product-swiper", {
+        new Swiper(".product-swiper", {
           loop: true,
           effect: "fade",
           fadeEffect: { crossFade: true },
@@ -181,23 +174,14 @@ document.addEventListener("DOMContentLoaded", function () {
           },
         });
 
-        // ==========================================================
-        // === PHẦN SỬA LỖI VÀ TỐI ƯU HÓA LOGIC CLICK ===
-        // ==========================================================
-
-        // Chỉ gán MỘT sự kiện click cho toàn bộ slider
         const swiperWrapper = document.querySelector(".product-swiper");
         if (swiperWrapper) {
-          swiperWrapper.addEventListener("click", function (event) {
-            // Kiểm tra xem người dùng có click vào nút .btn-product không
-            const button = event.target.closest(".btn-product");
+          swiperWrapper.addEventListener('click', function(event) {
+            const button = event.target.closest('.btn-product');
             if (button) {
-              // Lấy slide đang hoạt động từ chính Swiper
-              const activeSlide = productSwiper.slides[productSwiper.realIndex];
-              const link = activeSlide.getAttribute("data-link");
-
+              const activeSlide = document.querySelector('.product-swiper').swiper.slides[document.querySelector('.product-swiper').swiper.realIndex];
+              const link = activeSlide.getAttribute('data-link');
               if (link) {
-                console.log("Redirecting to:", link); // Dòng này để debug, có thể xóa
                 window.location.href = link;
               }
             }
@@ -205,103 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       })
       .catch((error) => console.error("Lỗi khi tải dữ liệu sản phẩm:", error));
-  }
-  //   function initializeProductSlider() {
-  // const sliderContainer = document.querySelector(".product-slides-container");
-  // if (!sliderContainer) return;
-
-  //     fetch("data/products.json")
-  //       .then((response) => response.json())
-  //       .then((productData) => {
-  //         let slidesHtml = "";
-
-  //         productData.forEach((slide) => {
-  //           const featuresHtml = slide.features
-  //             .map((feature) => {
-  //               const formattedFeature = feature.replace(
-  //                 /\*\*(.*?)\*\*/g,
-  //                 '<span class="font-bold mx-1 text-t86-green-light">$1</span>'
-  //               );
-  //               return `<li class="product-feature-item">
-  //                     <i class="fas fa-check text-t86-green-light mr-3"></i>${formattedFeature}
-  //                   </li>`;
-  //             })
-  //             .join("");
-
-  //             slidesHtml += `
-  //           <div class="swiper-slide" data-link="${slide.button.link}">
-  //             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center h-full">
-  //               <div class="product-content-wrapper text-center md:text-left">
-  //                 <p class="font-raleway text-lg text-t86-dark mb-1">${slide.preTitle}</p>
-  //                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight leading-tight uppercase text-t86-green-light">${slide.title}</h2>
-  //                 <ul class="product-ul mt-6 space-y-3 text-md text-t86-dark/90">${featuresHtml}</ul>
-  //                 <div class="mt-8">
-  //                   <button class="bg-t86-green text-white font-bold px-8 py-3 rounded-full hover:bg-t86-green-light hover:scale-105 ripple btn-product">
-  //                     ${slide.button.text}
-  //                   </button>
-  //                 </div>
-  //               </div>
-  //               <div class="product-content-wrapper flex flex-col items-center justify-center">
-  //                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-  //                   <div class="product-image-container">
-  //                     <img src="${slide.imageSrc}" class="object-contain pulse-animation" alt="${slide.title}" />
-  //                   </div>
-  //                   <div>
-  //                     ${slide.visualsHtml}
-  //                   </div>
-  //                 </div>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         `;
-  //         });
-
-  //         sliderContainer.innerHTML = `
-  //           <div class="product-slides-container relative container mx-auto px-4">
-  //             <div class="swiper product-swiper">
-  //               <div class="swiper-wrapper">${slidesHtml}</div>
-  //               <div class="swiper-pagination product-pagination"></div>
-  //             </div>
-  //             <div class="swiper-button-prev product-nav-prev"></div>
-  //             <div class="swiper-button-next product-nav-next"></div>
-  //           </div>
-  //         `;
-
-  //         const productSwiper = new Swiper(".product-swiper", {
-  //           loop: true,
-  //           effect: "fade",
-  //           fadeEffect: { crossFade: true },
-  //           speed: 800,
-  //           autoplay: { delay: 7000, disableOnInteraction: false },
-  //           pagination: { el: ".product-pagination", clickable: true },
-  //           navigation: {
-  //             nextEl: ".product-nav-next",
-  //             prevEl: ".product-nav-prev",
-  //           },
-  //         });
-
-  //         // Hàm cập nhật đường link cho nút bấm
-  //         const updateButtonLink = (swiper) => {
-  //           const activeSlide = swiper.slides[swiper.realIndex];
-  //           const button = activeSlide.querySelector('.btn-product');
-  //           const newLink = activeSlide.getAttribute('data-link');
-  //           if (button && newLink) {
-  //             button.onclick = () => {
-  //               window.location.href = newLink;
-  //             };
-  //           }
-  //         };
-
-  //         // Cập nhật đường link ngay khi khởi tạo Swiper
-  //         updateButtonLink(productSwiper);
-
-  //         // Cập nhật đường link mỗi khi slide thay đổi
-  //         productSwiper.on('slideChange', () => {
-  //           updateButtonLink(productSwiper);
-  //         });
-  //       })
-  //       .catch((error) => console.error("Lỗi khi tải dữ liệu sản phẩm:", error));
-  //   }
+}
 
   function initializeAllScripts() {
     if (document.querySelector(".hero-swiper")) {
