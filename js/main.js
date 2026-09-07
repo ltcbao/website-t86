@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (element) {
       return fetch(url)
         .then((response) =>
-          response.ok ? response.text() : Promise.resolve("")
+          response.ok ? response.text() : Promise.resolve(""),
         )
         .then((data) => {
           if (data) element.innerHTML = data;
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   Promise.all(componentsToLoad)
     .then(() => {
       console.log(
-        "All components loaded, initializing page-specific scripts..."
+        "All components loaded, initializing page-specific scripts...",
       );
       initializeAllScripts();
     })
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
           '<span class="mx-8">Không thể tải tin tức...</span>';
       });
   }
-function initializeProductSlider() {
+  function initializeProductSlider() {
     const sliderContainer = document.querySelector(".product-slides-container");
     if (!sliderContainer) return;
 
@@ -96,43 +96,64 @@ function initializeProductSlider() {
       .then((response) => response.json())
       .then((productData) => {
         let slidesHtml = "";
-        
+
         productData.forEach((slide) => {
           const featuresHtml = slide.features
             .map((feature) => {
               const formattedFeature = feature.replace(
                 /\*\*(.*?)\*\*/g,
-                '<span class="font-bold mx-1 text-t86-green-light">$1</span>'
+                '<span class="font-bold mx-1 text-[#1A9CA6]">$1</span>',
               );
-              return `<li class="product-feature-item">
-                    <i class="fas fa-check text-t86-green-light mr-3"></i>${formattedFeature}
+              return `<li class="flex items-start mb-4">
+                    <div class="mt-1 mr-4 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#1A9CA6]/10">
+                        <i class="fas fa-check text-sm text-[#1A9CA6]"></i>
+                    </div>
+                    <span class="text-gray-700 leading-relaxed text-lg">${formattedFeature}</span>
                   </li>`;
             })
             .join("");
 
-            slidesHtml += `
-          <div class="swiper-slide" data-link="${slide.button.link}">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center h-full">
-              <div class="product-content-wrapper text-center md:text-left">
-                <p class="font-raleway text-lg text-t86-dark mb-1">${slide.preTitle}</p>
-                <h2 class="text-4xl md:text-5xl font-bold tracking-tight leading-tight uppercase text-t86-green-light">${slide.title}</h2>
-                <ul class="product-ul mt-6 space-y-3 text-md text-t86-dark/90">${featuresHtml}</ul>
-                <div class="mt-8">
-                  <button class="bg-t86-green text-white font-bold px-8 py-3 rounded-full hover:bg-t86-green-light hover:scale-105 ripple btn-product">
-                    ${slide.button.text}
+          // Tự động dọn dẹp ký tự mũi tên thừa trong text của JSON
+          const cleanBtnText = slide.button.text
+            .replace(/->|→|&rarr;/g, "")
+            .trim();
+
+          slidesHtml += `
+          <div class="swiper-slide p-4 md:p-8" data-link="${slide.button.link}">
+            
+            <!-- Xóa max-w-6xl, thay bằng w-full và tăng padding (lg:p-20) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-center h-full w-full bg-white rounded-[2.5rem] shadow-xl p-8 md:p-12 lg:p-20">
+              
+              <!-- CỘT TRÁI: Nội dung -->
+              <div class="lg:col-span-5 flex flex-col justify-center text-center lg:text-left order-2 lg:order-1">
+    <p class="font-raleway text-sm md:text-base text-gray-500 font-bold tracking-[0.2em] uppercase mb-4">${slide.preTitle}</p>
+    <h2 class="text-3xl md:text-5xl font-extrabold tracking-wide leading-relaxed uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#0B2038] to-[#1A9CA6] py-2 px-1 inline-block box-decoration-clone" style="font-family: 'Montserrat', sans-serif;">
+        ${slide.title}
+    </h2>
+                
+                <ul class="mt-8 text-left inline-block lg:block">
+                    ${featuresHtml}
+                </ul>
+                
+                <div class="mt-10">
+                  <button class="bg-gradient-to-r from-[#D1AB57] to-[#B38D3F] text-[#0B2038] font-bold px-10 py-4 rounded-full hover:scale-105 transition-transform shadow-[0_10px_20px_rgba(209,171,87,0.3)] flex items-center justify-center gap-3 mx-auto lg:mx-0 btn-product">
+                    ${cleanBtnText} <i class="fas fa-arrow-right"></i>
                   </button>
                 </div>
               </div>
-              <div class="product-content-wrapper flex flex-col items-center justify-center">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  <div class="product-image-container">
-                    <img src="${slide.imageSrc}" class="object-contain pulse-animation" alt="${slide.title}" />
-                  </div>
-                  <div>
-                    ${slide.visualsHtml}
-                  </div>
+
+              <!-- CỘT PHẢI: Hình ảnh và Thông số -->
+              <div class="lg:col-span-7 flex flex-col md:flex-row items-center justify-center gap-10 lg:gap-14 order-1 lg:order-2">
+                <div class="w-full md:w-1/2 flex justify-center relative">
+                  <!-- Đã tăng max-h lên 500px để ảnh điện thoại to tương xứng với khung -->
+                  <img src="${slide.imageSrc}" class="object-contain max-h-[400px] md:max-h-[500px] drop-shadow-2xl hover:-translate-y-2 transition-transform duration-500" alt="${slide.title}" />
+                </div>
+                
+                <div class="w-full md:w-1/2 text-left">
+                  ${slide.visualsHtml}
                 </div>
               </div>
+              
             </div>
           </div>
         `;
@@ -163,18 +184,18 @@ function initializeProductSlider() {
         // ==========================================================
         // === PHẦN SỬA LỖI VÀ TỐI ƯU HÓA LOGIC CLICK ===
         // ==========================================================
-        
+
         // Chỉ gán MỘT sự kiện click cho toàn bộ slider
         const swiperWrapper = document.querySelector(".product-swiper");
         if (swiperWrapper) {
-          swiperWrapper.addEventListener('click', function(event) {
+          swiperWrapper.addEventListener("click", function (event) {
             // Kiểm tra xem người dùng có click vào nút .btn-product không
-            const button = event.target.closest('.btn-product');
+            const button = event.target.closest(".btn-product");
             if (button) {
               // Lấy slide đang hoạt động từ chính Swiper
               const activeSlide = productSwiper.slides[productSwiper.realIndex];
-              const link = activeSlide.getAttribute('data-link');
-              
+              const link = activeSlide.getAttribute("data-link");
+
               if (link) {
                 console.log("Redirecting to:", link); // Dòng này để debug, có thể xóa
                 window.location.href = link;
@@ -182,108 +203,106 @@ function initializeProductSlider() {
             }
           });
         }
-        
       })
       .catch((error) => console.error("Lỗi khi tải dữ liệu sản phẩm:", error));
-}
-//   function initializeProductSlider() {
-// const sliderContainer = document.querySelector(".product-slides-container");
-// if (!sliderContainer) return;
+  }
+  //   function initializeProductSlider() {
+  // const sliderContainer = document.querySelector(".product-slides-container");
+  // if (!sliderContainer) return;
 
+  //     fetch("data/products.json")
+  //       .then((response) => response.json())
+  //       .then((productData) => {
+  //         let slidesHtml = "";
 
-//     fetch("data/products.json")
-//       .then((response) => response.json())
-//       .then((productData) => {
-//         let slidesHtml = "";
-        
-//         productData.forEach((slide) => {
-//           const featuresHtml = slide.features
-//             .map((feature) => {
-//               const formattedFeature = feature.replace(
-//                 /\*\*(.*?)\*\*/g,
-//                 '<span class="font-bold mx-1 text-t86-green-light">$1</span>'
-//               );
-//               return `<li class="product-feature-item">
-//                     <i class="fas fa-check text-t86-green-light mr-3"></i>${formattedFeature}
-//                   </li>`;
-//             })
-//             .join("");
+  //         productData.forEach((slide) => {
+  //           const featuresHtml = slide.features
+  //             .map((feature) => {
+  //               const formattedFeature = feature.replace(
+  //                 /\*\*(.*?)\*\*/g,
+  //                 '<span class="font-bold mx-1 text-t86-green-light">$1</span>'
+  //               );
+  //               return `<li class="product-feature-item">
+  //                     <i class="fas fa-check text-t86-green-light mr-3"></i>${formattedFeature}
+  //                   </li>`;
+  //             })
+  //             .join("");
 
-//             slidesHtml += `
-//           <div class="swiper-slide" data-link="${slide.button.link}">
-//             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center h-full">
-//               <div class="product-content-wrapper text-center md:text-left">
-//                 <p class="font-raleway text-lg text-t86-dark mb-1">${slide.preTitle}</p>
-//                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight leading-tight uppercase text-t86-green-light">${slide.title}</h2>
-//                 <ul class="product-ul mt-6 space-y-3 text-md text-t86-dark/90">${featuresHtml}</ul>
-//                 <div class="mt-8">
-//                   <button class="bg-t86-green text-white font-bold px-8 py-3 rounded-full hover:bg-t86-green-light hover:scale-105 ripple btn-product">
-//                     ${slide.button.text}
-//                   </button>
-//                 </div>
-//               </div>
-//               <div class="product-content-wrapper flex flex-col items-center justify-center">
-//                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-//                   <div class="product-image-container">
-//                     <img src="${slide.imageSrc}" class="object-contain pulse-animation" alt="${slide.title}" />
-//                   </div>
-//                   <div>
-//                     ${slide.visualsHtml}
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         `;
-//         });
+  //             slidesHtml += `
+  //           <div class="swiper-slide" data-link="${slide.button.link}">
+  //             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center h-full">
+  //               <div class="product-content-wrapper text-center md:text-left">
+  //                 <p class="font-raleway text-lg text-t86-dark mb-1">${slide.preTitle}</p>
+  //                 <h2 class="text-4xl md:text-5xl font-bold tracking-tight leading-tight uppercase text-t86-green-light">${slide.title}</h2>
+  //                 <ul class="product-ul mt-6 space-y-3 text-md text-t86-dark/90">${featuresHtml}</ul>
+  //                 <div class="mt-8">
+  //                   <button class="bg-t86-green text-white font-bold px-8 py-3 rounded-full hover:bg-t86-green-light hover:scale-105 ripple btn-product">
+  //                     ${slide.button.text}
+  //                   </button>
+  //                 </div>
+  //               </div>
+  //               <div class="product-content-wrapper flex flex-col items-center justify-center">
+  //                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+  //                   <div class="product-image-container">
+  //                     <img src="${slide.imageSrc}" class="object-contain pulse-animation" alt="${slide.title}" />
+  //                   </div>
+  //                   <div>
+  //                     ${slide.visualsHtml}
+  //                   </div>
+  //                 </div>
+  //               </div>
+  //             </div>
+  //           </div>
+  //         `;
+  //         });
 
-//         sliderContainer.innerHTML = `
-//           <div class="product-slides-container relative container mx-auto px-4">
-//             <div class="swiper product-swiper">
-//               <div class="swiper-wrapper">${slidesHtml}</div>
-//               <div class="swiper-pagination product-pagination"></div>
-//             </div>
-//             <div class="swiper-button-prev product-nav-prev"></div>
-//             <div class="swiper-button-next product-nav-next"></div>
-//           </div>
-//         `;
+  //         sliderContainer.innerHTML = `
+  //           <div class="product-slides-container relative container mx-auto px-4">
+  //             <div class="swiper product-swiper">
+  //               <div class="swiper-wrapper">${slidesHtml}</div>
+  //               <div class="swiper-pagination product-pagination"></div>
+  //             </div>
+  //             <div class="swiper-button-prev product-nav-prev"></div>
+  //             <div class="swiper-button-next product-nav-next"></div>
+  //           </div>
+  //         `;
 
-//         const productSwiper = new Swiper(".product-swiper", {
-//           loop: true,
-//           effect: "fade",
-//           fadeEffect: { crossFade: true },
-//           speed: 800,
-//           autoplay: { delay: 7000, disableOnInteraction: false },
-//           pagination: { el: ".product-pagination", clickable: true },
-//           navigation: {
-//             nextEl: ".product-nav-next",
-//             prevEl: ".product-nav-prev",
-//           },
-//         });
+  //         const productSwiper = new Swiper(".product-swiper", {
+  //           loop: true,
+  //           effect: "fade",
+  //           fadeEffect: { crossFade: true },
+  //           speed: 800,
+  //           autoplay: { delay: 7000, disableOnInteraction: false },
+  //           pagination: { el: ".product-pagination", clickable: true },
+  //           navigation: {
+  //             nextEl: ".product-nav-next",
+  //             prevEl: ".product-nav-prev",
+  //           },
+  //         });
 
-//         // Hàm cập nhật đường link cho nút bấm
-//         const updateButtonLink = (swiper) => {
-//           const activeSlide = swiper.slides[swiper.realIndex];
-//           const button = activeSlide.querySelector('.btn-product');
-//           const newLink = activeSlide.getAttribute('data-link');
-//           if (button && newLink) {
-//             button.onclick = () => {
-//               window.location.href = newLink;
-//             };
-//           }
-//         };
+  //         // Hàm cập nhật đường link cho nút bấm
+  //         const updateButtonLink = (swiper) => {
+  //           const activeSlide = swiper.slides[swiper.realIndex];
+  //           const button = activeSlide.querySelector('.btn-product');
+  //           const newLink = activeSlide.getAttribute('data-link');
+  //           if (button && newLink) {
+  //             button.onclick = () => {
+  //               window.location.href = newLink;
+  //             };
+  //           }
+  //         };
 
-//         // Cập nhật đường link ngay khi khởi tạo Swiper
-//         updateButtonLink(productSwiper);
+  //         // Cập nhật đường link ngay khi khởi tạo Swiper
+  //         updateButtonLink(productSwiper);
 
-//         // Cập nhật đường link mỗi khi slide thay đổi
-//         productSwiper.on('slideChange', () => {
-//           updateButtonLink(productSwiper);
-//         });
-//       })
-//       .catch((error) => console.error("Lỗi khi tải dữ liệu sản phẩm:", error));
-//   }
-  
+  //         // Cập nhật đường link mỗi khi slide thay đổi
+  //         productSwiper.on('slideChange', () => {
+  //           updateButtonLink(productSwiper);
+  //         });
+  //       })
+  //       .catch((error) => console.error("Lỗi khi tải dữ liệu sản phẩm:", error));
+  //   }
+
   function initializeAllScripts() {
     if (document.querySelector(".hero-swiper")) {
       const swiper = new Swiper(".hero-swiper", {
@@ -380,7 +399,8 @@ function initializeProductSlider() {
 
       function createLogoSet(logoFiles) {
         const logoSet = document.createElement("div");
-        logoSet.className = "flex-shrink-0 flex items-center justify-around w-full space-x-4";
+        logoSet.className =
+          "flex-shrink-0 flex items-center justify-around w-full space-x-4";
         logoFiles.forEach((file) => {
           const logoContainer = document.createElement("div");
           logoContainer.className = "partner-logo-container";
@@ -394,14 +414,14 @@ function initializeProductSlider() {
         return logoSet;
       }
 
-      fetch('data/logo-partners.json')
-        .then(response => {
+      fetch("data/logo-partners.json")
+        .then((response) => {
           if (!response.ok) {
-            throw new Error('Không thể tải file logo-partners.json');
+            throw new Error("Không thể tải file logo-partners.json");
           }
           return response.json();
         })
-        .then(logoFiles => {
+        .then((logoFiles) => {
           if (wrapper) {
             wrapper.appendChild(createLogoSet(logoFiles));
             wrapper.appendChild(createLogoSet(logoFiles));
@@ -410,10 +430,11 @@ function initializeProductSlider() {
             }, 10);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Lỗi khi tải danh sách logo đối tác:", error);
           if (wrapper) {
-            wrapper.innerHTML = '<p class="text-center text-gray-500">Không thể tải logo đối tác.</p>';
+            wrapper.innerHTML =
+              '<p class="text-center text-gray-500">Không thể tải logo đối tác.</p>';
           }
         });
     }
@@ -428,7 +449,7 @@ function initializeProductSlider() {
           const increment = target / speed;
           if (count < target) {
             counter.innerText = Math.ceil(count + increment).toLocaleString(
-              "vi-VN"
+              "vi-VN",
             );
             setTimeout(updateCount, 15);
           } else {
@@ -446,7 +467,7 @@ function initializeProductSlider() {
             }
           });
         },
-        { threshold: 0.5 }
+        { threshold: 0.5 },
       );
       counters.forEach((counter) => {
         observer.observe(counter);
@@ -464,18 +485,21 @@ function initializeProductSlider() {
       const imageDirectory = "static/stats-images/";
       const columns = document.querySelectorAll(".stats-bg-column");
       if (columns.length === 0) return;
-      fetch('data/stats-images.json')
-        .then(response => {
+      fetch("data/stats-images.json")
+        .then((response) => {
           if (!response.ok) {
-            throw new Error('Không thể tải file stats-images.json');
+            throw new Error("Không thể tải file stats-images.json");
           }
           return response.json();
         })
-        .then(statsImageFiles => {
+        .then((statsImageFiles) => {
           columns.forEach((column) => {
             let imageListForThisColumn = [...statsImageFiles];
             shuffleArray(imageListForThisColumn);
-            const fullImageList = [...imageListForThisColumn, ...imageListForThisColumn];
+            const fullImageList = [
+              ...imageListForThisColumn,
+              ...imageListForThisColumn,
+            ];
             column.innerHTML = "";
             fullImageList.forEach((fileName) => {
               const img = document.createElement("img");
@@ -485,14 +509,16 @@ function initializeProductSlider() {
             });
           });
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Lỗi khi tải danh sách hình ảnh:", error);
         });
     }
 
     populateStatsBackground();
 
-    const typingSubtitle = document.querySelector("#hero-slide-1 .hero-subtitle");
+    const typingSubtitle = document.querySelector(
+      "#hero-slide-1 .hero-subtitle",
+    );
     const subtitleText = "Tài chính nhanh gọn, Sản phẩm trong tầm tay";
     let charIndex = 0;
     function typeWriter() {
@@ -582,22 +608,22 @@ function initializeProductSlider() {
         });
       }
     }
-      function initializeMobileMenu() {
-  const menuButton = document.getElementById("mobile-menu-button");
-  const closeButton = document.getElementById("close-mobile-menu");
-  const mobileMenu = document.getElementById("mobile-menu");
+    function initializeMobileMenu() {
+      const menuButton = document.getElementById("mobile-menu-button");
+      const closeButton = document.getElementById("close-mobile-menu");
+      const mobileMenu = document.getElementById("mobile-menu");
 
-  if (menuButton && closeButton && mobileMenu) {
-    menuButton.addEventListener("click", () => {
-      mobileMenu.classList.add("is-open");
-    });
+      if (menuButton && closeButton && mobileMenu) {
+        menuButton.addEventListener("click", () => {
+          mobileMenu.classList.add("is-open");
+        });
 
-    closeButton.addEventListener("click", () => {
-      mobileMenu.classList.remove("is-open");
-    });
-  }
-}
-initializeMobileMenu();
+        closeButton.addEventListener("click", () => {
+          mobileMenu.classList.remove("is-open");
+        });
+      }
+    }
+    initializeMobileMenu();
     initializeNewsTicker();
     initializeProductSlider();
     AOS.init({ duration: 1000, once: true });

@@ -1,83 +1,66 @@
-<nav class="container mx-auto px-4 lg:px-6 py-3">
+<nav class="container mx-auto px-4 lg:px-6 py-4 md:py-5">
+  <!-- Desktop & Tablet Navigation -->
   <div class="flex justify-between items-center">
-    <a href="index.html">
-      <img src="static/logo-t86-white.png" alt="T86 Logo" class="h-16 w-auto" />
+    
+    <!-- Logo (Đã được nâng cấp kích thước và hiệu ứng) -->
+    <a href="index.html" class="flex items-center group">
+      <img
+        src="static/vp86-logo-white.png"
+        alt="Vạn Phát 86 Logo"
+        class="h-16 md:h-20 lg:h-24 w-auto object-contain drop-shadow-[0_5px_10px_rgba(0,0,0,0.3)] group-hover:scale-105 transition-all duration-500"
+      />
     </a>
+    
+    <!-- Menu Links -->
     <div class="hidden md:flex items-center space-x-8 font-medium">
-      <a
-        href="index.html"
-        class="nav-link text-white opacity-80 hover:opacity-100 transition-opacity"
-        >Trang chủ</a
-      >
-      <a
-        href="about.html"
-        class="nav-link text-white opacity-80 hover:opacity-100 transition-opacity"
-        >Về chúng tôi</a
-      >
-      <a
-        href="products.html"
-        class="nav-link text-white opacity-80 hover:opacity-100 transition-opacity"
-        >Sản phẩm</a
-      >
-      <a
-        href="find-us.html"
-        class="nav-link text-white opacity-80 hover:opacity-100 transition-opacity"
-        >Chúng tôi gần bạn</a
-      >
-      <a
-        href="partners.html"
-        class="nav-link text-white opacity-80 hover:opacity-100 transition-opacity"
-        >Đối tác</a
-      >
+      <a href="index.html" class="nav-link text-white opacity-80 hover:opacity-100 hover:text-vp86-gold transition-all duration-300">Trang chủ</a>
+      <a href="about.html" class="nav-link text-white opacity-80 hover:opacity-100 hover:text-vp86-gold transition-all duration-300">Về chúng tôi</a>
+      <a href="products.html" class="nav-link text-white opacity-80 hover:opacity-100 hover:text-vp86-gold transition-all duration-300">Sản phẩm</a>
+      <a href="find-us.html" class="nav-link text-white opacity-80 hover:opacity-100 hover:text-vp86-gold transition-all duration-300">Chúng tôi gần bạn</a>
+      <a href="partners.html" class="nav-link text-white opacity-80 hover:opacity-100 hover:text-vp86-gold transition-all duration-300">Đối tác</a>
     </div>
-    <button id="mobile-menu-button" class="md:hidden text-2xl text-white">
+
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" class="md:hidden text-2xl text-white hover:text-vp86-gold transition-colors">
       <i class="fas fa-bars"></i>
     </button>
   </div>
+
+  <!-- Mobile Menu Overlay -->
   <div
     id="mobile-menu"
-    class="fixed inset-0 bg-t86-blue z-50 transform transition-transform duration-300"
+    class="fixed inset-0 bg-vp86-navy z-50 transform transition-transform duration-300"
   >
-    <div class="flex justify-end p-4">
-      <button id="close-mobile-menu" class="text-white text-3xl">
+    <!-- Header of Mobile Menu -->
+    <div class="flex justify-between items-center p-4 border-b border-white/10">
+      <a href="index.html">
+        <img
+          src="static/logo-van-phat-86-horizontal-white.png"
+          alt="Vạn Phát 86 Logo"
+          class="h-12 w-auto"
+        />
+      </a>
+      <button id="close-mobile-menu" class="text-white text-3xl hover:text-vp86-gold transition-colors">
         <i class="fas fa-times"></i>
       </button>
     </div>
+
+    <!-- Mobile Menu Links -->
     <ul class="flex flex-col items-center mt-12 space-y-6">
       <li>
-        <a
-          href="index.html"
-          class="text-white text-xl font-bold py-2 hover:text-t86-green-light"
-          >Trang chủ</a
-        >
+        <a href="index.html" class="text-white text-xl font-bold py-2 hover:text-vp86-gold transition-colors">Trang chủ</a>
       </li>
       <li>
-        <a
-          href="about.html"
-          class="text-white text-xl font-bold py-2 hover:text-t86-green-light"
-          >Về chúng tôi</a
-        >
+        <a href="about.html" class="text-white text-xl font-bold py-2 hover:text-vp86-gold transition-colors">Về chúng tôi</a>
       </li>
       <li>
-        <a
-          href="products.html"
-          class="text-white text-xl font-bold py-2 hover:text-t86-green-light"
-          >Sản phẩm</a
-        >
+        <a href="products.html" class="text-white text-xl font-bold py-2 hover:text-vp86-gold transition-colors">Sản phẩm</a>
       </li>
       <li>
-        <a
-          href="find-us.html"
-          class="text-white text-xl font-bold py-2 hover:text-t86-green-light"
-          >Chúng tôi gần bạn</a
-        >
+        <a href="find-us.html" class="text-white text-xl font-bold py-2 hover:text-vp86-gold transition-colors">Chúng tôi gần bạn</a>
       </li>
       <li>
-        <a
-          href="partners.html"
-          class="text-white text-xl font-bold py-2 hover:text-t86-green-light"
-          >Đối tác</a
-        >
+        <a href="partners.html" class="text-white text-xl font-bold py-2 hover:text-vp86-gold transition-colors">Đối tác</a>
       </li>
     </ul>
   </div>

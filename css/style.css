@@ -24,7 +24,8 @@ body,
 }
 
 /* Kiểm tra các phần tử có vị trí cố định/tuyệt đối */
-.fixed, .absolute {
+.fixed,
+.absolute {
   max-width: 100% !important;
 }
 /* ================================================== */
@@ -53,7 +54,7 @@ html {
   height: 100%;
 }
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: #212529;
   line-height: 1.65;
   display: flex;
@@ -69,18 +70,18 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 700;
   letter-spacing: 1px;
 }
 .font-dancing-script {
-  font-family: 'Dancing Script', cursive;
+  font-family: "Dancing Script", cursive;
 }
 .font-oswald {
-  font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 .font-pacifico {
-  font-family: 'Pacifico', cursive;
+  font-family: "Pacifico", cursive;
 }
 
 /* ================================================== */
@@ -94,7 +95,7 @@ h6 {
 /* === SHARED SLIDER STYLES (HERO & PRODUCTS) === */
 /* ================================================== */
 .swiper-pagination-bullet-active {
-  background-color: #c2d436 !important;
+  background-color: #D1AB57 !important;
 }
 .swiper-button-next,
 .swiper-button-prev {
@@ -126,12 +127,13 @@ section#home {
   z-index: 20;
 }
 section#home::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url('../static/background-1.jpg');
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("../static/background-1.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -185,7 +187,7 @@ section#home::before {
   color: #c2d436;
 }
 .hero-features .feature-item h3 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 600;
   font-size: 1rem;
 }
@@ -201,6 +203,16 @@ section#home::before {
     transform: scale(1.1);
   }
 }
+.hero-title {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.feature-item:hover .feature-icon {
+  border-color: rgba(209, 171, 87, 0.6);
+  box-shadow: 0 0 25px rgba(209, 171, 87, 0.4);
+}
+
 .hero-features .feature-item:nth-child(1) .feature-icon {
   animation-delay: 0s;
 }
@@ -214,12 +226,15 @@ section#home::before {
   animation-delay: 1.2s;
 }
 
-/* --- Hero Animations & Effects --- */
+.hero-logo,
 .hero-title,
 .hero-subtitle,
 #magnetic-btn {
   opacity: 0;
+  will-change: transform, opacity; /* Tối ưu hiệu suất render animation */
 }
+
+/* 2. Chuyển động lướt lên và hiện rõ */
 @keyframes text-reveal {
   from {
     opacity: 0;
@@ -230,8 +245,13 @@ section#home::before {
     transform: translateY(0);
   }
 }
+
+/* 3. Chuỗi hiệu ứng xuất hiện tuần tự (Timeline Delay) */
+.swiper-slide-active .hero-logo {
+  animation: text-reveal 0.8s ease-out forwards 0.1s;
+}
 .swiper-slide-active .hero-title {
-  animation: text-reveal 0.8s ease-out forwards 0.3s;
+  animation: text-reveal 0.8s ease-out forwards 0.3s; /* Đã bổ sung dòng bị thiếu này */
 }
 .swiper-slide-active .hero-subtitle {
   animation: text-reveal 0.8s ease-out forwards 0.5s;
@@ -239,18 +259,22 @@ section#home::before {
 .swiper-slide-active #magnetic-btn {
   animation: text-reveal 0.8s ease-out forwards 0.7s;
 }
+
+/* 4. Màu sắc và độ phát sáng của Tiêu đề (Màu Gold) */
 #hero-slide-1 .hero-title,
 #hero-slide-2 .hero-title,
 #hero-slide-3 .hero-title {
-  color: #c2d436;
-  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+  color: #d1ab57;
+  text-shadow: 1px 1px 15px rgba(209, 171, 87, 0.4);
 }
 #magnetic-btn .magnetic-effect {
   position: absolute;
   border-radius: 50%;
   background: #00a651;
   transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease;
+  transition:
+    width 0.3s ease,
+    height 0.3s ease;
   pointer-events: none;
   z-index: 0;
 }
@@ -278,7 +302,9 @@ section#home::before {
 .swiper-slide-active .anim-el {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 .swiper-slide-active .anim-el.product-p {
   transition-delay: 0.1s;
@@ -330,7 +356,6 @@ section#home::before {
   animation-delay: 0.7s;
 }
 
- 
 .product-slide .product-h2 {
   color: #00833e;
   font-weight: 900;
@@ -386,18 +411,21 @@ section#home::before {
 
 @keyframes button-glow-shadow {
   from {
-    box-shadow: 0 0 5px rgba(0, 166, 81, 0.4);
+    box-shadow: 0 0 5px rgba(26, 156, 166, 0.4);
   }
   to {
-    box-shadow: 0 0 20px rgba(0, 166, 81, 0.9);
+    box-shadow: 0 0 20px rgba(88, 194, 71, 0.7);
   }
 }
 .product-slide .btn-product {
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  /* Chuyển nền nút bấm sang dải gradient từ Logo */
+background: linear-gradient(to right, #1A9CA6, #58C247); /* Gradient logo */
+  color: white;
+  border: none;
   animation: button-glow-shadow 1.5s infinite alternate ease-in-out;
 }
 .product-slide .btn-product:hover {
-  background-color: #00a651;
+  background: linear-gradient(to right, #137a82, #47a138);
   transform: scale(1.05);
 }
 @keyframes button-glow-shadow {
@@ -461,17 +489,31 @@ section#home::before {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   flex-shrink: 0;
 }
-.stats-bg-column:nth-child(1) { animation-duration: 30s; }
-.stats-bg-column:nth-child(2) { animation-duration: 42s; }
-.stats-bg-column:nth-child(3) { animation-duration: 28s; }
-.stats-bg-column:nth-child(4) { animation-duration: 38s; }
-.stats-bg-column:nth-child(5) { animation-duration: 25s; }
-.stats-bg-column:nth-child(6) { animation-duration: 35s; }
-.stats-bg-column:nth-child(7) { 
-  animation-duration: 45s;
-  animation-direction: reverse; 
+.stats-bg-column:nth-child(1) {
+  animation-duration: 30s;
 }
-.stats-bg-column:nth-child(8) { animation-duration: 25; }
+.stats-bg-column:nth-child(2) {
+  animation-duration: 42s;
+}
+.stats-bg-column:nth-child(3) {
+  animation-duration: 28s;
+}
+.stats-bg-column:nth-child(4) {
+  animation-duration: 38s;
+}
+.stats-bg-column:nth-child(5) {
+  animation-duration: 25s;
+}
+.stats-bg-column:nth-child(6) {
+  animation-duration: 35s;
+}
+.stats-bg-column:nth-child(7) {
+  animation-duration: 45s;
+  animation-direction: reverse;
+}
+.stats-bg-column:nth-child(8) {
+  animation-duration: 25;
+}
 #stats-background-grid::before {
   top: 0;
   background: linear-gradient(
@@ -517,13 +559,13 @@ section#home::before {
   color: #1a3a1e;
 }
 #about-hero-new h1 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 3.5rem;
   font-weight: 700;
   line-height: 1.2;
 }
 #about-hero-new p {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1.1rem;
   margin-top: 1rem;
   opacity: 0.9;
@@ -539,7 +581,7 @@ section#home::before {
   padding-bottom: 5rem;
 }
 #core-values {
-padding-top: 5rem;
+  padding-top: 5rem;
   padding-bottom: 5rem;
 }
 
@@ -608,12 +650,16 @@ padding-top: 5rem;
 /* === HEADER GRADIENT BACKGROUND === */
 /* ================================================== */
 #header-placeholder {
-  background-image: linear-gradient(to right, #002d5b, #00833e);
-  box-shadow: none;
+  /* Chuyển sang nền gradient xanh Navy trầm tĩnh để tôn logo 3D lên */
+  background-image: linear-gradient(to right, #071526, #0b2038);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+/* Hover menu đổi sang màu Vàng Gold thay vì xanh chuối */
+#header-placeholder a.nav-link:hover,
 #header-placeholder a.nav-link.font-bold {
+  color: #d1ab57 !important; /* Màu Gold */
   opacity: 1;
-  color: #c2d436;
 }
 
 /* ================================================== */
@@ -624,11 +670,11 @@ body#find-us-page {
   z-index: 0;
 }
 body#find-us-page::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-image: url('../static/together.jpg');
+  background-image: url("../static/together.jpg");
   background-size: cover;
   background-position: center;
   filter: blur(1px);
@@ -649,23 +695,30 @@ body#find-us-page::before {
   z-index: 10;
   width: 44px;
   height: 44px;
-  background-color: rgba(0, 0, 0, 0.4);
-  color: white;
+  background-color: #ffffff; /* Nền nút màu trắng */
+  color: #D1AB57; /* Mũi tên màu Vàng Gold */
+  border: 1px solid rgba(209, 171, 87, 0.3); /* Viền Vàng Gold mờ */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Đổ bóng nhẹ để nổi lên nền web */
   border-radius: 50%;
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition: all 0.3s ease;
 }
 .product-nav-next {
-  right: -60px;
+  right: -20px; /* Đẩy nhẹ ra sát biên của thẻ Card */
 }
 .product-nav-prev {
-  left: -60px;
+  left: -20px; /* Đẩy nhẹ ra sát biên của thẻ Card */
 }
 .product-nav-next:hover,
 .product-nav-prev:hover {
-  background-color: rgba(0, 0, 0, 0.6);
-  transform: translateY(-50%) scale(1.1);
+  background-color: #D1AB57; /* Đổi nền sang Vàng Gold */
+  color: #ffffff; /* Đổi mũi tên sang màu Trắng */
+  border-color: #D1AB57;
+  transform: translateY(-50%) scale(1.1); /* Phóng to nhẹ */
+  box-shadow: 0 4px 20px rgba(209, 171, 87, 0.4);
 }
+
+/* Ký tự mũi tên FontAwesome */
 .product-nav-next::after,
 .product-nav-prev::after {
   font-family: 'Font Awesome 5 Free';
@@ -691,14 +744,10 @@ body#find-us-page::before {
   flex-shrink: 0;
 }
 .text-t86-green {
-    color: #00b74f;
+  color: #00b74f;
 }
 .text-gradient-blue-green {
-  background: linear-gradient(
-    90deg,
-    #0056b3 0%,
-    #28a745 100%
-  );
+  background: linear-gradient(90deg, #0056b3 0%, #28a745 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -727,7 +776,9 @@ body#find-us-page::before {
 .product-slides-container .btn-product {
   position: relative;
   z-index: 1;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
   animation: final-button-glow 1.5s infinite alternate ease-in-out;
   border-radius: 9999px;
   overflow: hidden;
@@ -736,7 +787,7 @@ body#find-us-page::before {
   will-change: transform;
 }
 .product-slides-container .btn-product:hover {
-  background-color: #00A651;
+  background-color: #00a651;
   transform: scale(1.05);
 }
 @keyframes final-button-glow {
@@ -752,3 +803,5 @@ body#find-us-page::before {
     display: none !important; /* Quan trọng: Ẩn hoàn toàn menu trên desktop */
   }
 }
+
+
